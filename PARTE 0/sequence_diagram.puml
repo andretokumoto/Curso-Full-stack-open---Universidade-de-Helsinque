@@ -1,0 +1,14 @@
+@startuml
+   sequenceDiagram
+
+      User->>Page: POST:https://studies.cs.helsinki.fi/exampleapp/notes
+      Page-->>User: HTTP 302
+      User->>Page: HTTP GET html
+      Page-->>User: html
+      User->>Page: HTTP GET CSS
+      Page-->>User: CSS
+      User->>Page: HTTP GET Javascript
+      Page-->>User: Javascript
+      User->>Page: HTTP GET  https://studies.cs.helsinki.fi/exampleapp/data.json
+      Page-->>User: dados
+@enduml

@@ -1,0 +1,13 @@
+ @startuml   
+    sequenceDiagram
+        participant Pagina
+        participant Navegador
+        participant Servidor
+
+        Pagina->>Navegador: POST:https://studies.cs.helsinki.fi/exampleapp/notes
+        Navegador->>Servidor: HTTP GET Javascript
+        Servidor-->>Navegador: Javascript
+        Servidor-->>Navegador: Json
+        Navegador-->>Pagina: API DOM : pagina
+@enduml
+    
