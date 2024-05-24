@@ -1,25 +1,15 @@
-const Hello = (props) => {
-  return (
-    <div>
-      <p>Olá  {props.nome}, você tem {props.idade} anos de idade</p>
-    </div>
-  )
-}
-
 const App = () => {
-  const idade = 80
-  const nome = 'Constantino Emanuell'
+  const amigos = [ 
+      { nome: 'Andre', idade: 27 },
+      { nome: 'Sebastião', idade: 90 },
+    ]
+
   return (
     <div>
-      <h1>Olá a todos!</h1>
-
-      <Hello nome ='André' idade={20+7} />
-      <Hello nome = {nome} idade = {idade}/>
+      <p>{amigos[0].nome} {amigos[0].idade}</p>
+      <p>{amigos[1].nome} {amigos[1].idade}</p>
     </div>
   )
 }
 
 export default App
-
-
-
