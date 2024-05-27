@@ -1,76 +1,50 @@
+import { useState } from 'react'
+
 const App = () => {
-
-  const course = {
-    name: 'Desenvolvimento de aplicação Half Stack',
-    parts: [
-      {
-        name: 'Fundamentos da biblioteca React',
-        exercises: 10
-      },
-      {
-        name: 'Usando props para passar dados',
-        exercises: 7
-      },
-      {
-        name: 'Estado de um componente',
-        exercises: 14
-      }
-    ]
-  }
-
-
-  const Header = (props) => {
-    console.log(props)
-    return(
-      <div>
-        <p>
-          Curso: {props.course.name}
-        </p>
-      </div>
-    )
-  }
-
-  const Part = (props) =>{
-
-    return(
-      <div>
-        <p>
-          Conteudo: {props.conteudo}, exercicios da secção: {props.exercises}
-        </p>
-      </div>
-    )
-
-  }
-
-  const Content  = (props) => {
-    
-    return(
-      <div>
-        <Part conteudo={course.parts[0].name} exercises={course.parts[0].exercises} />
-        <Part conteudo={course.parts[1].name} exercises={course.parts[1].exercises} />
-        <Part conteudo={course.parts[2].name} exercises={course.parts[2].exercises} />
-      </div>
-    )
-
-  }
-
-  const Total  = (props) => {
-    console.log(props)
-    return(
-      <div>
-        <p>
-          Total: {props.total}
-        </p>
-      </div>
-    )
-
-  }
+  // salve os cliques de cada botão em seu próprio estado
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
 
   return (
     <div>
-      <Header course={course} />
-      <Content/>
-      <Total total = {course.parts[0].exercises + course.parts[1].exercises+ course.parts[2].exercises} />
+      
+      <b>
+        FEDD BACK
+      </b>
+
+     <p>
+      <button onClick={() => setGood(good+1)}>
+            Good   
+      </button>
+
+      <button onClick={() => setNeutral(neutral+1)}>
+            Neutral   
+      </button>
+
+      <button onClick={() => setBad(bad+1)}>
+            BAD   
+      </button>
+
+     </p> 
+
+     <b>
+        ESTÁTISTICAS
+     </b>
+
+     <p>
+        GOOD: {good}
+     </p>
+
+     <p>
+        NEUTRAL: {neutral}
+     </p>
+
+     <p>
+        BAD: {bad}
+     </p>
+       
+
     </div>
   )
 }
