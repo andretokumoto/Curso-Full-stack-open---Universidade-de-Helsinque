@@ -1,31 +1,26 @@
 import { useState } from 'react'
 
-const Average = (props)=>{
+const StatisticLine  = (props) => {
+
   return(
     <p>
-       pontuação média: {props.ponderada/props.total}
-    </p>  
-  ) 
+      {props.text} : {props.valor}
+    </p>
+
+  )
+
 }
 
+const Statistics = (props) => {
 
-const TotalPositivo = (props)=>{
-  const total = props.total
-  const good = props.good
-  return(
-    <p>
-      Porcentagem Positiva: {(good/total)*100}%
-    </p>  
-  ) 
-}
-
-const Estatisticas = (props)=>{
   const good = props.good
   const neutral = props.neutral
   const bad = props.good
   const ponderada = props.ponderada
+  const total = good+bad+neutral
+  const positiva = good/total
 
-  if(good+bad+neutral===0){
+  if(total===0){
     return(
       <div>
         <p>
@@ -34,91 +29,74 @@ const Estatisticas = (props)=>{
       </div>
     )
   }
-
   else{
     return(
       <div>
-        <b>
-        ESTATÍSTICAS
-        </b>
+          <StatisticLine text='good' valor = {good}/>
+          <StatisticLine text='neutral' valor = {neutral}/>
+          <StatisticLine text='bad' valor = {bad}/>
+          <StatisticLine text='total' valor = {total}/>
+          <StatisticLine text='pontuação média' valor = {ponderada/total}/>
+          <StatisticLine text='Positiva' valor = {positiva*100}/>
+      </div>
 
-        <p>
-          GOOD: {good}
-        </p>
-
-        <p>
-          NEUTRAL: {neutral}
-        </p>
-
-        <p>
-          BAD: {bad}
-        </p>
-        
-
-        <p>
-          TOTAL: {good+bad+neutral}
-        </p>
-
-        <Average ponderada={ponderada} total = {good+bad+neutral} />
-        <TotalPositivo good={good} total ={good+bad+neutral}/>
-
-      </div>  
     )
-  } 
-  
+  }
+
 }
 
+const Button = (props) => (
+  <button onClick={props.handleClique}>
+    {props.texto}
+  </button>
+)
 
 const App = () => {
   
-  const [good, setGood] = useState(0)
-  const [neutral, setNeutral] = useState(0)
-  const [bad, setBad] = useState(0)
-  const [ponderada,setPonderada]=useState(0)
+      const [good, setGood] = useState(0)
+      const [neutral, setNeutral] = useState(0)
+      const [bad, setBad] = useState(0)
+      const [ponderada,setPonderada]=useState(0)
 
+      const setFeedback = (feedback) =>{
+        switch(feedback){
 
-  const clique = (feedback) =>{
+          case 'good': {
+            setGood(good+1)
+            setPonderada(ponderada+1)
+            break
+          }
 
-      switch(feedback){
-
-        case 'good': {
-          setGood(good+1)
-          setPonderada(ponderada+1)
-          break
+          case 'neutral':{
+            setNeutral(neutral+1)
+            break
+          }
+          case 'bad':{
+            setBad(bad+1)
+            setPonderada(ponderada-1)
+            break
+          }
+          default:break
         }
 
-        case 'neutral':{
-          setNeutral(neutral+1)
-          break
-        }
-        case 'bad':{
-          setBad(bad+1)
-          setPonderada(ponderada-1)
-          break
-        }
-        default:break
-      }
+      }     
+      return (
+        <div>
+        
+            <b>
+                FEDD BACK
+            </b>
+            <p>
+              <Button handleClique={()=>setFeedback("good")} texto="good" />
+              <Button handleClique={()=>setFeedback("neutral")} texto="neutral" />
+              <Button handleClique={()=>setFeedback("bad")} texto="bad" />
+            </p> 
+            <Statistics good={good} neutral={neutral} bad={bad} ponderada={ponderada}/>
 
-  }
+        </div>
 
-
-  return (
-    <div>
+      )
     
-        <b>
-            FEDD BACK
-        </b>
-        <p>
-          <button onClick={() => clique('good')}>Good</button>
-          <button onClick={() => clique('neutral')}>Neutral</button>
-          <button onClick={() => clique('bad')}>BAD</button>
-        </p> 
-
-        <Estatisticas good={good} neutral={neutral} bad={bad} ponderada={ponderada}/>
-
-    </div>
-
-  )
 }
 
 export default App
