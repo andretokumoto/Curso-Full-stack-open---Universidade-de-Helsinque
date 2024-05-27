@@ -59,7 +59,7 @@ const Button = (props) => (
   </button>
 )
 
-const App = () => {
+const Unicafe = () => {
   
       const [good, setGood] = useState(0)
       const [neutral, setNeutral] = useState(0)
@@ -107,4 +107,4 @@ const App = () => {
     
 }
 
-export default App
+export default Unicafe
