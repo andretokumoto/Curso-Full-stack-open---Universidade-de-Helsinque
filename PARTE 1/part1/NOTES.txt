@@ -1,0 +1,3 @@
+os projetos Couse information e Unicafe foram criados na mesmo projeto , e podem ser acessados, em todas as suas versoes por meio dos commits
+
+tambem há os arquivos app desses projetos na pasta 'arquivos dos projetos'
