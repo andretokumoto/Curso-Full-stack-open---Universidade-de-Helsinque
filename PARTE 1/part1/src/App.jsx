@@ -25,35 +25,46 @@ const Estatisticas = (props)=>{
   const bad = props.good
   const ponderada = props.ponderada
 
-  return(
-    <div>
-      <b>
-      ESTÁTISTICAS
-      </b>
+  if(good+bad+neutral===0){
+    return(
+      <div>
+        <p>
+          Sem estatísticas
+        </p>
+      </div>
+    )
+  }
 
-      <p>
-        GOOD: {good}
-      </p>
+  else{
+    return(
+      <div>
+        <b>
+        ESTATÍSTICAS
+        </b>
 
-      <p>
-        NEUTRAL: {neutral}
-      </p>
+        <p>
+          GOOD: {good}
+        </p>
 
-      <p>
-        BAD: {bad}
-      </p>
-      
+        <p>
+          NEUTRAL: {neutral}
+        </p>
 
-      <p>
-        TOTAL: {good+bad+neutral}
-      </p>
+        <p>
+          BAD: {bad}
+        </p>
+        
 
-      <Average ponderada={ponderada} total = {good+bad+neutral} />
-      <TotalPositivo good={good} total ={good+bad+neutral}/>
+        <p>
+          TOTAL: {good+bad+neutral}
+        </p>
 
-    </div>  
-  )
-    
+        <Average ponderada={ponderada} total = {good+bad+neutral} />
+        <TotalPositivo good={good} total ={good+bad+neutral}/>
+
+      </div>  
+    )
+  } 
   
 }
 
@@ -94,16 +105,16 @@ const App = () => {
   return (
     <div>
     
-     <b>
-        FEDD BACK
-     </b>
-     <p>
-       <button onClick={() => clique('good')}>Good</button>
-       <button onClick={() => clique('neutral')}>Neutral</button>
-       <button onClick={() => clique('bad')}>BAD</button>
-     </p> 
+        <b>
+            FEDD BACK
+        </b>
+        <p>
+          <button onClick={() => clique('good')}>Good</button>
+          <button onClick={() => clique('neutral')}>Neutral</button>
+          <button onClick={() => clique('bad')}>BAD</button>
+        </p> 
 
-     <Estatisticas good={good} neutral={neutral} bad={bad} ponderada={ponderada}/>
+        <Estatisticas good={good} neutral={neutral} bad={bad} ponderada={ponderada}/>
 
     </div>
 
