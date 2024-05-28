@@ -7,6 +7,19 @@ const Button = (props) => (
     </button>
   )
 
+const MaisVotada = (props)=>{
+
+    const anedotas = props.anedotas;
+    const votos = props.votos;
+    const maxVotes = Math.max(...votos);
+    const indexMaisVotada = votos.indexOf(maxVotes)
+    
+    return(
+        <p>{anedotas[indexMaisVotada]}</p>
+    )
+
+}
+
 const Anecdotes = () => {
   const anecdotes = [
     'Se fazer algo dói, faça isso com mais frequência.',
@@ -42,6 +55,8 @@ const Anecdotes = () => {
         </p>
         <b>{anecdotes[selected]}</b> 
         <p>tem {votos[selected]} votos</p>
+        <b>Mais votada</b>
+        <p><MaisVotada anedotas={anecdotes} votos={votos}/></p>
     </div>
   )
 }
