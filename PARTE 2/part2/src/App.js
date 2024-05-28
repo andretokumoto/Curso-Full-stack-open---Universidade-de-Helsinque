@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import SeccaoA from './atividades/seccaoA.jsx'
 
-function App() {
+//todos os codigos/projetos dessa parte são importdados para app.js
+const Exibe = (props)=>{
+  const notes = props.notes
+  const selecao = props.select
+
+  //faz a seleção de qual exercicio sera exibido de acordo com a entrada de select
+  if(selecao==='a'){
+     return(
+      <div>
+         <SeccaoA notes={notes}/>
+      </div>
+     )
+  }
+
+
+}
+
+function App (props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+        <Exibe notes={props} select='a'/>
     </div>
   );
 }
