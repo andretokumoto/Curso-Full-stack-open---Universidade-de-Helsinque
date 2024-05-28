@@ -1,20 +1,22 @@
 import { useState } from 'react'
 import CourseInformation from './projetos/course_information.jsx'
 import Unicafe from './projetos/unicafe.jsx'
+import Anecdotes from './projetos/anecdotes.jsx'
 
 
-const Selecao = (props) =>{
 
-      switch(props.opcao){
-
-        case 1:
-          <CourseInformation/>
-          break
-        case 2:
-          <Unicafe/>
-          break
-      }
-}
+const Selecao = (props) => {
+  switch (props.opcao) {
+    case '1':
+      return <CourseInformation />;
+    case '2':
+      return <Unicafe />;
+    case '3':
+         return <Anecdotes />;
+    default:
+      return null;
+  }
+};
 
 
 const App = () => {
@@ -26,35 +28,35 @@ const App = () => {
         switch(projeto){
       
           case 'course': {
-            setOpcao(1)
+            setOpcao('1')
             break
           }
       
           case 'unicafe':{
-            setOpcao(2)
+            setOpcao('2')
             break
           }
           case 'anecdotes':{
-            setOpcao(3)
+            setOpcao('3')
             break
           }
           default:break
         }
       
       }
-      const projeto = useState(0)
+     
       return (
         <div>
         
             <b>
-                FEDD BACK
+                Seleção de Projeto
             </b>
             <p>
-              <button onClick={() => clique('course')}>Good</button>
-              <button onClick={() => clique('unicafe')}>Neutral</button>
-              <button onClick={() => clique('anecdotes')}>BAD</button>
+              <button onClick={() => clique('course')}>Course Information</button>
+              <button onClick={() => clique('unicafe')}>Unicafe</button>
+              <button onClick={() => clique('anecdotes')}>Anecdotes</button>
             </p> 
-    
+            <Selecao opcao={opcao}/>
         </div>
     
       )
