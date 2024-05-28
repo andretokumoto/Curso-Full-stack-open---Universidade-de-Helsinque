@@ -1,0 +1,1 @@
+Os arquivos dos execicios, bem como os códigos desenvolvidos das aulas estão na pasta atividades no diretório 'src' , sendo esses importados em app.jsx 
