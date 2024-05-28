@@ -19,17 +19,29 @@ const Anecdotes = () => {
     'A única maneira de ir rápido é ir bem.'
   ]
    
-  const [selected, setSelected] = useState(0)
+  const [selected, setSelected] = useState(0);
+  const [votos, setVotos] = useState(Array(anecdotes.length).fill(0));
 
   const geraAleatorio=()=>{
-    const numero = Math.floor(Math.random() * 8);
+    const numero = Math.floor(Math.random() * anecdotes.length);
     setSelected(numero);
+  }
+
+  const Voto=(valor)=>{
+
+    const novoVoto = votos;
+    novoVoto[valor]++;
+    setVotos(novoVoto);
   }
 
   return (
     <div>
-      <p><Button handleClique={()=>geraAleatorio()} texto="Gerar Anedota" /></p>
-      <b>{anecdotes[selected]}</b> 
+        <p>
+            <Button handleClique={()=>geraAleatorio()} texto="Gerar Anedota" />
+            <Button handleClique={()=>Voto(selected)} texto="Votar" />
+        </p>
+        <b>{anecdotes[selected]}</b> 
+        <p>tem {votos[selected]} votos</p>
     </div>
   )
 }
