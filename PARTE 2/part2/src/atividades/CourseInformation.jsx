@@ -22,12 +22,9 @@ const Header = (props) => {
   
   const Total  = (props) => {
     console.log(props)
+    const parts = props.parts
 
-    const part = props.parts
-    let total = 0; 
-    part.forEach((part) => {
-      total = total + part.exercises;
-    });
+    const total = parts.reduce((sum, part) => sum + part.exercises, 0);
 
     return(
       <div>
