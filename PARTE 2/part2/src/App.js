@@ -1,5 +1,6 @@
 import SeccaoA from './atividades/seccaoA.jsx'
 import CourseInformation from './atividades/CourseInformation.jsx'
+import SeccaoB from './atividades/seccaoB.jsx'
 
 //todos os codigos/projetos dessa parte são importdados para app.js
 const Exibe = (props)=>{
@@ -20,7 +21,16 @@ const Exibe = (props)=>{
         <CourseInformation/>
       </div>
     )    
-  } 
+  }
+
+  else if (selecao==='b') {
+    return(
+      <div>
+        <SeccaoB notes={notes}/>
+      </div>
+    )    
+  }  
+
   else {
     return(
       <div>
@@ -35,7 +45,7 @@ const Exibe = (props)=>{
 function App (props) {
   return (
     <div>
-        <Exibe notes={props} select='Course'/>
+        <Exibe notes={props.notes} select='b'/>
     </div>
   );
 }
