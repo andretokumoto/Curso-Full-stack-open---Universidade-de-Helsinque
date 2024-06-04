@@ -1,0 +1,55 @@
+import { useState } from 'react'
+
+
+
+
+const Phonebook = () => {
+  const [persons, setPersons] = useState([
+    { name: 'Arto Hellas' }
+  ]) 
+  const [newName, setNewName] = useState('')
+
+  const clique = (event) => {
+    event.preventDefault()
+    const newPerson = { name: newName };
+    setPersons(persons.concat(newPerson))
+    console.log({persons})
+    setNewName('')
+  }
+
+  const handlePersonChange = (event) => { 
+    console.log(event.target.value)
+    setNewName(event.target.value)
+  }
+
+  const Lista = ({ persons }) => {
+    return (
+      <ul>
+        {persons.map((person, index) => (
+          <li key={index}>{person.name}</li>
+        ))}
+      </ul>
+    );
+  };
+
+  return (
+    <div>
+      <h2>Phonebook</h2>
+      <form onSubmit={clique}>
+        <div>
+          Name: <input type='text' value={newName} onChange={handlePersonChange}/>
+        </div>
+        <div>
+          <button type="submit">add</button>
+        </div>
+      </form>
+      <h2>Numbers</h2>
+        <Lista persons={persons}/>
+
+
+      <div>debug: {newName}</div>
+    </div>
+  )
+}
+
+export default Phonebook
