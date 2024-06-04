@@ -1,8 +1,6 @@
 import { useState } from 'react'
 
 
-
-
 const Phonebook = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas' }
@@ -10,19 +8,27 @@ const Phonebook = () => {
   const [newName, setNewName] = useState('')
 
   const clique = (event) => {
-    event.preventDefault()
+    event.preventDefault();
+
     const newPerson = { name: newName };
-    setPersons(persons.concat(newPerson))
-    console.log({persons})
-    setNewName('')
-  }
+    const AlredyExists = persons.some(person => person.name === newName);
+
+    if (AlredyExists) {
+      const message = `${newName} is already added to phonebook`;
+      alert(message);
+    } else {
+      setPersons(persons.concat(newPerson));
+      console.log({ persons: persons.concat(newPerson) });
+    }
+    setNewName(''); 
+  };
 
   const handlePersonChange = (event) => { 
     console.log(event.target.value)
     setNewName(event.target.value)
   }
 
-  const Lista = ({ persons }) => {
+  const List = ({ persons }) => {
     return (
       <ul>
         {persons.map((person, index) => (
@@ -44,7 +50,7 @@ const Phonebook = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-        <Lista persons={persons}/>
+        <List persons={persons}/>
 
 
       <div>debug: {newName}</div>
