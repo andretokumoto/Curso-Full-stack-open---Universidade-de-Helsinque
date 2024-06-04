@@ -1,15 +1,15 @@
-import { useState } from 'react'
-
+import { useState } from 'react';
 
 const Phonebook = () => {
   const [persons, setPersons] = useState([
     { 
-        name: 'Arto Hellas',
-        number: '123456789'
+      name: 'Arto Hellas',
+      number: '123456789'
     }
-  ]) 
-  const [newName, setNewName] = useState('')
-  const [newNumber, setNewNumber]= useState('')
+  ]); 
+  const [newName, setNewName] = useState('');
+  const [newNumber, setNewNumber] = useState('');
+  const [filterSourch, setFilterSourch] = useState('');
 
   const clique = (event) => {
     event.preventDefault();
@@ -29,18 +29,28 @@ const Phonebook = () => {
   };
 
   const handlePersonChange = (event) => { 
-    console.log(event.target.value)
-    setNewName(event.target.value)
-  }
+    console.log(event.target.value);
+    setNewName(event.target.value);
+  };
 
   const handleNumberChange = (event) => { 
-    console.log(event.target.value)
-    setNewNumber(event.target.value)
-  }
-  const List = ({ persons }) => {
+    console.log(event.target.value);
+    setNewNumber(event.target.value);
+  };
+
+  const handleFilterChange = (event) => { 
+    console.log(event.target.value);
+    setFilterSourch(event.target.value);
+  };
+
+  const List = ({ persons, filter }) => {
+    const personsToShow = filter 
+      ? persons.filter(person => person.name.toLowerCase().includes(filter.toLowerCase()))
+      : persons;
+
     return (
       <ul>
-        {persons.map((person, index) => (
+        {personsToShow.map((person, index) => (
           <li key={index}>{person.name} {person.number}</li>
         ))}
       </ul>
@@ -50,20 +60,24 @@ const Phonebook = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <div>
+        Filter: <input onChange={handleFilterChange} value={filterSourch}/>
+      </div>
+
+      <h2>Add New</h2>
       <form onSubmit={clique}>
         <div>
           Name: <input type='text' value={newName} onChange={handlePersonChange}/>
         </div>
-        <div>number: <input type='text' value={newNumber} onChange={handleNumberChange}/></div>
+        <div>Number: <input type='text' value={newNumber} onChange={handleNumberChange}/></div>
         <div>
           <button type="submit">add</button>
         </div>
       </form>
       <h2>Numbers</h2>
-        <List persons={persons}/>
-
+      <List persons={persons} filter={filterSourch}/>
     </div>
-  )
-}
+  );
+};
 
-export default Phonebook
+export default Phonebook;
