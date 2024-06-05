@@ -1,6 +1,24 @@
 import { useState } from 'react';
 
+const List = (props) => {
+  const persons = props.persons
+  const filter = props.filter
+  
+  const personsToShow = filter 
+    ? persons.filter(person => person.name.toLowerCase().includes(filter.toLowerCase()))
+    : persons;
+
+  return (
+    <ul>
+      {personsToShow.map((person, index) => (
+        <li key={index}>{person.name} {person.number}</li>
+      ))}
+    </ul>
+  );
+};
+
 const Phonebook = () => {
+  
   const [persons, setPersons] = useState([
     { 
       name: 'Arto Hellas',
@@ -41,20 +59,6 @@ const Phonebook = () => {
   const handleFilterChange = (event) => { 
     console.log(event.target.value);
     setFilterSourch(event.target.value);
-  };
-
-  const List = ({ persons, filter }) => {
-    const personsToShow = filter 
-      ? persons.filter(person => person.name.toLowerCase().includes(filter.toLowerCase()))
-      : persons;
-
-    return (
-      <ul>
-        {personsToShow.map((person, index) => (
-          <li key={index}>{person.name} {person.number}</li>
-        ))}
-      </ul>
-    );
   };
 
   return (
