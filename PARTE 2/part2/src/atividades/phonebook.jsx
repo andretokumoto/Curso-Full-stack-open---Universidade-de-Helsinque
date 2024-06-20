@@ -1,4 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+
+
+
 
 const List = (props) => {
   const persons = props.persons
@@ -19,15 +23,16 @@ const List = (props) => {
 
 const Phonebook = () => {
   
-  const [persons, setPersons] = useState([
-    { 
-      name: 'Arto Hellas',
-      number: '123456789'
-    }
-  ]); 
+  const [persons, setPersons] = useState([]); 
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filterSourch, setFilterSourch] = useState('');
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/persons').then((response) => {
+      setPersons(response.data)
+    })
+  }, [])
 
   const clique = (event) => {
     event.preventDefault();
