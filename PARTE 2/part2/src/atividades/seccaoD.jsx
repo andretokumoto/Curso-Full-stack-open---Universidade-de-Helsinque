@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Note from './Note.jsx'
 
-const SeccaoC = () => {
+const SeccaoD = () => {
 
   const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState('')
@@ -27,6 +27,12 @@ const SeccaoC = () => {
   
     setNotes(notes.concat(noteObject))
     setNewNote('')
+
+    axios
+    .post('http://localhost:3001/notes', noteObject)
+    .then(response => {
+      console.log(response)
+    })
   }
 
   const handleNoteChange = (event) => { 
@@ -40,7 +46,7 @@ const SeccaoC = () => {
 
 return (
   <div>
-    <h1>Notes parte c</h1>
+    <h1>Notes parte D</h1>
     <div>
         <button onClick={() => setShowAll(!showAll)}>
         show {showAll ? 'important' : 'all' }
@@ -67,4 +73,4 @@ return (
 }
 
 
-export default SeccaoC 
+export default SeccaoD 

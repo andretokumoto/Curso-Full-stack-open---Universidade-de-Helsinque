@@ -29,7 +29,7 @@ const SeccaoB = (props) => {
 
     return (
       <div>
-        <h1>Notes</h1>
+        <h1>Notes parte b</h1>
         <div>
             <button onClick={() => setShowAll(!showAll)}>
             show {showAll ? 'important' : 'all' }

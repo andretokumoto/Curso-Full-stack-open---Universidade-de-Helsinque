@@ -4,6 +4,7 @@ import CourseInformation from './atividades/CourseInformation.jsx'
 import SeccaoB from './atividades/seccaoB.jsx'
 import Phonebook from './atividades/phonebook.jsx'
 import SeccaoC from './atividades/seccaoC.jsx'
+import SeccaoD from './atividades/seccaoD.jsx'
 
 //todos os codigos/projetos dessa parte são importdados para app.js
 const Exibe = (props)=>{
@@ -52,6 +53,14 @@ const Exibe = (props)=>{
     )    
   } 
 
+  else if (selecao==='d') {
+    return(
+      <div>
+        <SeccaoD/>
+      </div>
+    )    
+  }
+
   else {
     return(
       <div>
@@ -85,6 +94,7 @@ const App = (props) => {
           <button onClick={() => clique('b')}>Seccção B</button>
           <button onClick={() => clique('phone')}>Phone Book</button>
           <button onClick={() => clique('c')}>Seccção C</button>
+          <button onClick={() => clique('d')}>Seccção D</button>
         </p> 
         <Exibe notes={props.notes} select={opcao}/>
     </div>
