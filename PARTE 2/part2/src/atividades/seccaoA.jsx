@@ -7,7 +7,7 @@ const Note = ({ note }) => {
 
 const SeccaoA = (props) => {
     const { notes } = props.notes
-  
+    console.log('teste')
     return (
       <div>
         <h1>Notes</h1>
