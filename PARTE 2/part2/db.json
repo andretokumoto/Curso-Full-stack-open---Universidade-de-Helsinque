@@ -14,31 +14,6 @@
       "id": "3",
       "content": "GET e POST são os métodos mais importantes do protocolo HTTP",
       "important": true
-    },
-    {
-      "id": 4,
-      "content": "teste",
-      "important": false
-    },
-    {
-      "id": 4,
-      "content": "teste",
-      "important": true
-    },
-    {
-      "id": 4,
-      "content": "jjjj",
-      "important": true
-    },
-    {
-      "id": 7,
-      "content": "novo",
-      "important": true
-    },
-    {
-      "id": 8,
-      "content": "neww",
-      "important": true
     }
   ],
   "persons": [
