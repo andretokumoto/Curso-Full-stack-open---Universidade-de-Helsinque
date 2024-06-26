@@ -40,8 +40,9 @@ const Phonebook = () => {
 
   const clique = (event) => {
     event.preventDefault();
+    const new_id = persons.length + 1;
 
-    const newPerson = { name: newName, number: newNumber };
+    const newPerson = { name: newName, number: newNumber,id: String(new_id) };
     const AlredyExists = persons.some((person) => person.name === newName);
 
     if (AlredyExists) {
