@@ -11,7 +11,7 @@ const List = (props) => {
 
   const personsToShow = filter
     ? persons.filter((person) =>
-        person.name.toLowerCase().includes(filter.toLowerCase())
+        person.name && person.name.toLowerCase().includes(filter.toLowerCase())
       )
     : persons;
 
