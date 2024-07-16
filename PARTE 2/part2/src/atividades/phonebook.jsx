@@ -1,7 +1,23 @@
 import { useState, useEffect } from 'react';
 import noteService from '../services/persons.js';
+import './phonebook.css'
+
+const Notification = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
+    <div className='error'>
+      {message}
+    </div>
+  )
+}
+
 
 const List = ({ persons, filter, setPersons }) => {
+
+
   if (!persons) {
     return null;
   }
@@ -18,9 +34,11 @@ const List = ({ persons, filter, setPersons }) => {
 
       noteService.del(id).then(() => {
         setPersons(persons.filter(person => person.id !== id));
-      }).catch(error => {
+      })
+      .catch(error => {
         console.error('Ocorreu um erro ao deletar o item', error);
       });
+
     }
   };
 
@@ -40,6 +58,7 @@ const Phonebook = () => {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filterSourch, setFilterSourch] = useState('');
+  const [errorMessage, setErrorMessage] = useState('some error happened...')
 
   useEffect(() => {
     noteService.getAll().then((response) => {
@@ -55,12 +74,29 @@ const Phonebook = () => {
     const AlredyExists = persons.some((person) => person.name === newName);
 
     if (AlredyExists) {
-      const message = `${newName} is already added to phonebook`;
-      alert(message);
+      setErrorMessage(
+        `${newName} is already added to phonebook`
+      )
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+     /* const message = `${newName} is already added to phonebook`;
+      alert(message);*/
+
+
     } else {
       noteService.create(newPerson).then((returnedPerson) => {
         setPersons(persons.concat(returnedPerson));
         console.log({ persons: persons.concat(returnedPerson) });
+
+        setErrorMessage(
+          `${newName} adicionado`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+
+
       });
     }
 
@@ -86,6 +122,7 @@ const Phonebook = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={errorMessage} />
       <div>
         Filter: <input onChange={handleFilterChange} value={filterSourch} />
       </div>
