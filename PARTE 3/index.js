@@ -1,3 +1,4 @@
+import moment from 'moment';
 const express = require('express')
 const app = express()
 
@@ -107,6 +108,16 @@ app.post('/api/notes', (request, response) => {
 app.get('/api/persons', (request, response) => {
   response.json(persons)
 })
+
+app.get('/api/info',(request, response) => {
+
+    const qtd_dados = persons.length
+    const data_hoje = moment().format('YYYY-MM-DD');
+    console.log('qtd:',qtd_dados)
+
+
+})
+
 
 //-------------------------------------------------------------
   const PORT = 3001
