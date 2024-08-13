@@ -157,14 +157,26 @@ app.post('/api/persons', (request, response) => {
   }
 
   const person = {
-    content: body.content,
-    important: body.important || false,
+    name: body.name,
+    number: body.number,
     id: generateIdPhone(),
   }
 
-  persons = persons.concat(person)
+  if(body.name=='' | body.number ==''){
+      return response.status(400).json({
+        error:"nome ou telefone faltantes"
+      })
+  }
 
-  response.json(person)
+  else if(persons.includes(body.name)){
+    return response.status(400).json({
+      error: 'name must be unique'
+    })
+  }
+    else{     
+      persons = persons.concat(person)
+      response.json(person)
+    }
 })
 
 
