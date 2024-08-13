@@ -162,13 +162,13 @@ app.post('/api/persons', (request, response) => {
     id: generateIdPhone(),
   }
 
-  if(body.name=='' | body.number ==''){
+  if(!body.name || !body.number){
       return response.status(400).json({
         error:"nome ou telefone faltantes"
       })
   }
-
-  else if(persons.includes(body.name)){
+  const nameExists = persons.some(person => person.name === body.name);
+  if (nameExists){
     return response.status(400).json({
       error: 'name must be unique'
     })
