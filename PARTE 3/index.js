@@ -104,10 +104,12 @@ app.post('/api/notes', (request, response) => {
 
 //------------persons-----------------------------------------
 
+//retorna a lista telefonica
 app.get('/api/persons', (request, response) => {
   response.json(persons)
 })
 
+//retorna informações da lista
 app.get('/api/info',(request, response) => {
 
     const qtd_dados = persons.length
@@ -117,6 +119,7 @@ app.get('/api/info',(request, response) => {
 
 })
 
+//pega uma pessoa especifica da lista
 app.get('/api/persons/:id', (request, response) => {
   const id = Number(request.params.id)
   const person = persons.find(persons => persons.id === id)
@@ -128,6 +131,13 @@ app.get('/api/persons/:id', (request, response) => {
   }
 })
 
+//deletar um elemento da lista
+app.delete('/api/persons/:id', (request, response) => {
+  const id = Number(request.params.id)
+  persons = persons.filter(person => person.id !== id)
+
+  response.status(204).end()
+})
 
 //-------------------------------------------------------------
   const PORT = 3001
