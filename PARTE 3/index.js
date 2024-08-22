@@ -1,5 +1,8 @@
 const express = require('express')
+const morgan = require('morgan')
 const app = express()
+
+app.use(morgan('tiny'))
 
 app.use(express.json())
 
@@ -42,12 +45,11 @@ let persons = [
       "name": "Mary Poppendieck", 
       "number": "39-23-6423122"
     }
-
 ]
 
 app.get('/', (request, response) => {
     response.send('<h1>Hello World!</h1>')
-  })
+})
   
 //-----------notes------------------------------------------  
 app.get('/api/notes', (request, response) => {
@@ -57,7 +59,6 @@ app.get('/api/notes', (request, response) => {
 app.get('/api/notes/:id', (request, response) => {
     const id = Number(request.params.id)
     const note = notes.find(note => note.id === id)
-    
   
     if (note) {
       response.json(note)
@@ -66,14 +67,12 @@ app.get('/api/notes/:id', (request, response) => {
     }
 })
 
-
 app.delete('/api/notes/:id', (request, response) => {
   const id = Number(request.params.id)
   notes = notes.filter(note => note.id !== id)
 
   response.status(204).end()
 })
-
 
 const generateId = () => {
   const maxId = notes.length > 0
@@ -111,12 +110,10 @@ app.get('/api/persons', (request, response) => {
 
 //retorna informações da lista
 app.get('/api/info',(request, response) => {
-
     const qtd_dados = persons.length
     const data_hoje = new Date();
     
     response.send(`<h1>pessoas na lista: ${qtd_dados}</h1><p>Data: ${data_hoje}</p>`);
-
 })
 
 //pega uma pessoa especifica da lista
@@ -138,7 +135,6 @@ app.delete('/api/persons/:id', (request, response) => {
 
   response.status(204).end()
 })
-
 
 const generateIdPhone = () => {
   const maxId = persons.length > 0
@@ -173,15 +169,14 @@ app.post('/api/persons', (request, response) => {
       error: 'name must be unique'
     })
   }
-    else{     
-      persons = persons.concat(person)
-      response.json(person)
-    }
+  else{     
+    persons = persons.concat(person)
+    response.json(person)
+  }
 })
 
-
 //-------------------------------------------------------------
-  const PORT = 3001
+const PORT = 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
