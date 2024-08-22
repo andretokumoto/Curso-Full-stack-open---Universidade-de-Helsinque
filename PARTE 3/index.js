@@ -3,6 +3,7 @@ const morgan = require('morgan')
 const app = express()
 
 app.use(morgan('tiny'))
+app.use(express.static('build'))
 
 app.use(express.json())
 
