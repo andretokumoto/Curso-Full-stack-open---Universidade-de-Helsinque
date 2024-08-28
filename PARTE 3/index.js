@@ -1,10 +1,24 @@
 const express = require('express')
 const morgan = require('morgan')
+const mongoose = require('mongoose')
 const app = express()
 
 app.use(morgan('tiny'))
 app.use(express.static('build'))
 app.use(express.json())
+
+
+if (process.argv.length<3) {
+  console.log('give password as argument')
+  process.exit(1)
+}
+
+const password = process.argv[2]
+
+const url = 'mongodb+srv://andretokumoto:'+{password}+'@fullstackopen.vbjd3.mongodb.net/?retryWrites=true&w=majority&appName=FullStackOpen';
+
+mongoose.set('strictQuery',false)
+mongoose.connect(url)
 
 let notes = [
   {
