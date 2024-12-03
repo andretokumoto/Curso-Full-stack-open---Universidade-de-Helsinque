@@ -165,44 +165,31 @@ app.delete('/api/persons/:id', (request, response) => {
   response.status(204).end()
 })
 
-const generateIdPhone = () => {
+/*const generateIdPhone = () => {
   const maxId = persons.length > 0
     ? Math.max(...persons.map(n => n.id))
     : 0
   return maxId + 1
-}
+}*/
 
 app.post('/api/persons', (request, response) => {
-  const body = request.body
+  const body = request.body;
 
-  if (!body.content) {
-    return response.status(400).json({ 
-      error: 'content missing' 
-    })
+  if (!body.name || !body.number) {
+    return response.status(400).json({
+      error: 'name or number missing',
+    });
   }
 
-  const person = {
+  const person = new Person({
     name: body.name,
     number: body.number,
-    id: generateIdPhone(),
-  }
+  });
 
-  if(!body.name || !body.number){
-      return response.status(400).json({
-        error:"nome ou telefone faltantes"
-      })
-  }
-  const nameExists = persons.some(person => person.name === body.name);
-  if (nameExists){
-    return response.status(400).json({
-      error: 'name must be unique'
-    })
-  }
-  else{     
-    persons = persons.concat(person)
-    response.json(person)
-  }
-})
+  person.save().then(savedPerson => {
+    response.json(savedPerson);
+  });
+});
 
 //-------------------------------------------------------------
 const PORT = process.env.PORT || 3001
