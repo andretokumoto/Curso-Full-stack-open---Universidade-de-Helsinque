@@ -2,6 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
 const app = express()
+const errorHandler = require('./errorHandler');
 
 app.use(morgan('tiny'))
 app.use(express.static('build'))
@@ -47,29 +48,6 @@ let notes = [
     important: true
   }
 ]
-
-/*let persons = [ 
-    { 
-      "id": 1,
-      "name": "Arto Hellas", 
-      "number": "040-123456"
-    },
-    { 
-      "id": 2,
-      "name": "Ada Lovelace", 
-      "number": "39-44-5323523"
-    },
-    { 
-      "id": 3,
-      "name": "Dan Abramov", 
-      "number": "12-43-234345"
-    },
-    { 
-      "id": 4,
-      "name": "Mary Poppendieck", 
-      "number": "39-23-6423122"
-    }
-]*/
 
 app.get('/', (request, response) => {
     response.send('<h1>Hello World!</h1>')
@@ -158,7 +136,7 @@ app.get('/api/persons/:id', (request, response) => {
 })
 
 //deletar um elemento da lista
-app.delete('/api/persons/:id', (request, response) => {
+app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
     .then(result => {
       if (result) {
@@ -167,20 +145,11 @@ app.delete('/api/persons/:id', (request, response) => {
         response.status(404).json({ error: 'person not found' });
       }
     })
-    .catch(error => {
-      console.error('Error deleting person:', error.message);
-      response.status(500).json({ error: 'internal server error' });
-    });
+    .catch(error => next(error)); // Passe o erro para o middleware de erros
 });
 
-/*const generateIdPhone = () => {
-  const maxId = persons.length > 0
-    ? Math.max(...persons.map(n => n.id))
-    : 0
-  return maxId + 1
-}*/
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
   const body = request.body;
 
   if (!body.name || !body.number) {
@@ -194,10 +163,15 @@ app.post('/api/persons', (request, response) => {
     number: body.number,
   });
 
-  person.save().then(savedPerson => {
-    response.json(savedPerson);
-  });
+  person.save()
+    .then(savedPerson => {
+      response.json(savedPerson);
+    })
+    .catch(error => next(error)); // Passe o erro para o middleware de erros
 });
+
+
+app.use(errorHandler);
 
 //-------------------------------------------------------------
 const PORT = process.env.PORT || 3001
