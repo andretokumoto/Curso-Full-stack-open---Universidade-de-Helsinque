@@ -159,11 +159,19 @@ app.get('/api/persons/:id', (request, response) => {
 
 //deletar um elemento da lista
 app.delete('/api/persons/:id', (request, response) => {
-  const id = Number(request.params.id)
-  persons = persons.filter(person => person.id !== id)
-
-  response.status(204).end()
-})
+  Person.findByIdAndRemove(request.params.id)
+    .then(result => {
+      if (result) {
+        response.status(204).end();
+      } else {
+        response.status(404).json({ error: 'person not found' });
+      }
+    })
+    .catch(error => {
+      console.error('Error deleting person:', error.message);
+      response.status(500).json({ error: 'internal server error' });
+    });
+});
 
 /*const generateIdPhone = () => {
   const maxId = persons.length > 0
