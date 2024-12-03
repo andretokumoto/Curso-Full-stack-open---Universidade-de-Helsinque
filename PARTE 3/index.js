@@ -20,6 +20,16 @@ const url = 'mongodb+srv://andretokumoto:'+{password}+'@fullstackopen.vbjd3.mong
 mongoose.set('strictQuery',false)
 mongoose.connect(url)
 
+const personSchema = new mongoose.Schema({
+  name: String,
+  number: String,
+});
+
+const Person = mongoose.model('Person', personSchema);
+
+module.exports = Person;
+
+
 let notes = [
   {
     id: 1,
@@ -38,7 +48,7 @@ let notes = [
   }
 ]
 
-let persons = [ 
+/*let persons = [ 
     { 
       "id": 1,
       "name": "Arto Hellas", 
@@ -59,7 +69,7 @@ let persons = [
       "name": "Mary Poppendieck", 
       "number": "39-23-6423122"
     }
-]
+]*/
 
 app.get('/', (request, response) => {
     response.send('<h1>Hello World!</h1>')
@@ -118,9 +128,14 @@ app.post('/api/notes', (request, response) => {
 //------------persons-----------------------------------------
 
 //retorna a lista telefonica
-app.get('/api/persons', (request, response) => {
+/*app.get('/api/persons', (request, response) => {
   response.json(persons)
-})
+})*/
+app.get('/api/persons', (request, response) => {
+  Person.find({}).then(persons => {
+    response.json(persons);
+  });
+});
 
 //retorna informações da lista
 app.get('/api/info',(request, response) => {
